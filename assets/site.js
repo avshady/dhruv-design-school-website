@@ -37,6 +37,8 @@
     filterCourses();
   }));
   search?.addEventListener('input', filterCourses);
+  const level = new URLSearchParams(location.search).get('level');
+  filters.find(button => button.dataset.filter === level)?.click();
   const form = document.querySelector('#interest-form');
   if(!form) return;
   const course = document.querySelector('#programme');
