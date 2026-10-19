@@ -78,3 +78,30 @@
     document.querySelector('#full-name').focus();
   });
 })();
+// Large headings drift sideways with scroll and fill with colour as they enter the viewport
+(() => {
+  const items = [...document.querySelectorAll('[data-scroll-text]')];
+  if(!items.length) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('in-view');
+    }), {threshold: 0.5});
+    items.forEach(item => io.observe(item));
+  } else items.forEach(item => item.classList.add('in-view'));
+  if(reduce) return;
+  let ticking = false;
+  const update = () => {
+    const vh = innerHeight;
+    items.forEach(item => {
+      const r = item.getBoundingClientRect();
+      if(r.bottom < -200 || r.top > vh + 200) return;
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+      item.style.setProperty('--p', p.toFixed(4));
+    });
+    ticking = false;
+  };
+  addEventListener('scroll', () => { if(!ticking) { ticking = true; requestAnimationFrame(update); } }, {passive: true});
+  addEventListener('resize', update);
+  update();
+})();
