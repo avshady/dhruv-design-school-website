@@ -25,4 +25,3 @@
 body{overflow-x:clip}[data-scroll-text]{--p:.5;--shift:7vw;--from:var(--line);--to:var(--ink);color:var(--from);transform:translate3d(calc((.5 - var(--p)) * var(--shift)),0,0);transition:color 1s cubic-bezier(.2,.7,.2,1);will-change:transform}[data-scroll-text].in-view{color:var(--to)}.academics .display[data-scroll-text]:after{color:var(--from);transition:color 1s .25s}.academics .display[data-scroll-text].in-view:after{color:var(--orange)}.disciplines [data-scroll-text]{--from:#4e5149;--to:var(--paper)}.next-step [data-scroll-text]{--from:rgba(32,34,31,.22)}
 @media(max-width:760px){[data-scroll-text]{--shift:10vw}.academics .display[data-scroll-text]{--shift:20vw}}
 @media(prefers-reduced-motion:reduce){[data-scroll-text]{transform:none;transition:none}}
-.hero-art img{object-position:60% 50%}
